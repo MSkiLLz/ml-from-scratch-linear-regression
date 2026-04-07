@@ -1,23 +1,36 @@
-# train.py
-
-from model import SimpleNN
 import numpy as np
 
-X = np.array([[1,2],[2,3],[3,4],[5,6]])
-y = np.array([0,0,1,1])
+np.random.seed(42)
 
-model = SimpleNN()
+W1 = np.random.randn(2, 3)
+b1 = np.zeros(3)
 
-for epoch in range(100):
+W2 = np.random.randn(3, 2)
+b2 = np.zeros(2)
 
-    preds = model.forward(X)
+W3 = np.random.randn(2, 1)
+b3 = 0
 
-    loss = -np.mean(y*np.log(preds.flatten()) +
-                    (1-y)*np.log(1-preds.flatten()))
+def relu(x):
+    return np.maximum(0, x)
 
-    model.backward(X, y)
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
 
-    if epoch % 20 == 0:
-        print(f"Epoch {epoch}, Loss: {loss:.4f}")
+def forward(X):
+    z1 = np.dot(X, W1) + b1
+    a1 = relu(z1)
 
-print(model.forward(X))
+    z2 = np.dot(a1, W2) + b2
+    a2 = relu(z2)
+
+    z3 = np.dot(a2, W3) + b3
+    a3 = sigmoid(z3)
+
+    return z1, a1, z2, a2, z3, a3
+    
+X = np.array([[1,2],[2,3]])
+
+_, _, _, _, _, output = forward(X)
+
+print(output)
