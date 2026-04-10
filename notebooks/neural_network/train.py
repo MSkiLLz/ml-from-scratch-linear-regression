@@ -1,8 +1,7 @@
 import numpy as np
 
-w = 5
-gradient = 2
+lambda_reg = 0.01
 
-for lr in [0.01, 0.1, 1]:
-    new_w = w - lr * gradient
-    print(f"LR={lr}, Updated w={new_w}")
+l2_penalty = lambda_reg * np.sum(W1**2)
+
+loss = original_loss + l2_penalty
