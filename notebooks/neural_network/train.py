@@ -1,7 +1,10 @@
 import numpy as np
 
-lambda_reg = 0.01
+def dropout(a, rate=0.5):
+    mask = np.random.rand(*a.shape) > rate
+    return a * mask
+    
+z1 = np.dot(X, W1) + b1
+a1 = relu(z1)
 
-l2_penalty = lambda_reg * np.sum(W1**2)
-
-loss = original_loss + l2_penalty
+a1 = dropout(a1, rate=0.5)
