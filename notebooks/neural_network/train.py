@@ -1,10 +1,11 @@
 import numpy as np
 
-def dropout(a, rate=0.5):
-    mask = np.random.rand(*a.shape) > rate
-    return a * mask
+def batch_norm(x):
+    mean = np.mean(x, axis=0)
+    std = np.std(x, axis=0) + 1e-8  # avoid division by zero
+    return (x - mean) / std
     
 z1 = np.dot(X, W1) + b1
-a1 = relu(z1)
+z1_norm = batch_norm(z1)
 
-a1 = dropout(a1, rate=0.5)
+a1 = relu(z1_norm)
