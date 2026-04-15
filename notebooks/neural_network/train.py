@@ -1,21 +1,27 @@
 import torch
+import torch.nn as nn
 
-x = torch.tensor([1.0, 2.0, 3.0])
-print(x)
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super(SimpleNN, self).__init__()
+
+        self.layer1 = nn.Linear(2, 2)
+        self.layer2 = nn.Linear(2, 1)
+
+    def forward(self, x):
+        x = torch.relu(self.layer1(x))
+        x = torch.sigmoid(self.layer2(x))
+        return x
+        
+model = SimpleNN()
+print(model)
 
 X = torch.tensor([[1.0, 2.0],
-                  [3.0, 4.0]])
-                  
-w = torch.tensor([0.5, 0.2])
+                  [2.0, 3.0]])
 
-z = torch.matmul(X, w)
-print(z)
+output = model(X)
 
-x = torch.tensor(2.0, requires_grad=True)
+print(output)
 
-y = x**2 + 3*x
-
-y.backward()
-
-print(x.grad)
-
+for name, param in model.named_parameters():
+    print(name, param.shape)
