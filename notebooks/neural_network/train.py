@@ -1,10 +1,17 @@
 import torch
 import torch.nn as nn
+import torch.optim as optim
+
+X = torch.tensor([[1.0, 2.0],
+                  [2.0, 3.0],
+                  [3.0, 4.0],
+                  [5.0, 6.0]])
+
+y = torch.tensor([[0.0], [0.0], [1.0], [1.0]])
 
 class SimpleNN(nn.Module):
     def __init__(self):
-        super(SimpleNN, self).__init__()
-
+        super().__init__()
         self.layer1 = nn.Linear(2, 2)
         self.layer2 = nn.Linear(2, 1)
 
@@ -12,16 +19,28 @@ class SimpleNN(nn.Module):
         x = torch.relu(self.layer1(x))
         x = torch.sigmoid(self.layer2(x))
         return x
-        
+
 model = SimpleNN()
-print(model)
 
-X = torch.tensor([[1.0, 2.0],
-                  [2.0, 3.0]])
+criterion = nn.BCELoss()
+optimizer = optim.SGD(model.parameters(), lr=0.1)
 
-output = model(X)
+for epoch in range(100):
 
-print(output)
+    # Forward
+    outputs = model(X)
 
-for name, param in model.named_parameters():
-    print(name, param.shape)
+    # Loss
+    loss = criterion(outputs, y)
+
+    # Backward
+    optimizer.zero_grad()
+    loss.backward()
+
+    # Update
+    optimizer.step()
+
+    if epoch % 20 == 0:
+        print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
+        
+print(model(X).detach())
