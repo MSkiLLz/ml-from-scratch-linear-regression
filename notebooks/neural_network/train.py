@@ -25,22 +25,41 @@ model = SimpleNN()
 criterion = nn.BCELoss()
 optimizer = optim.SGD(model.parameters(), lr=0.1)
 
+from torch.utils.data import Dataset
+
+class SimpleDataset(Dataset):
+    def __init__(self):
+        self.X = torch.tensor([[1.0,2.0],
+                               [2.0,3.0],
+                               [3.0,4.0],
+                               [5.0,6.0]])
+        self.y = torch.tensor([[0.0],[0.0],[1.0],[1.0]])
+
+    def __len__(self):
+        return len(self.X)
+
+    def __getitem__(self, idx):
+        return self.X[idx], self.y[idx]
+        
+from torch.utils.data import DataLoader
+
+dataset = SimpleDataset()
+
+loader = DataLoader(dataset, batch_size=2, shuffle=True)
+
+for X_batch, y_batch in loader:
+    print(X_batch, y_batch)
+    
 for epoch in range(100):
 
-    # Forward
-    outputs = model(X)
+    for X_batch, y_batch in loader:
 
-    # Loss
-    loss = criterion(outputs, y)
+        outputs = model(X_batch)
+        loss = criterion(outputs, y_batch)
 
-    # Backward
-    optimizer.zero_grad()
-    loss.backward()
-
-    # Update
-    optimizer.step()
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
     if epoch % 20 == 0:
         print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
-        
-print(model(X).detach())
