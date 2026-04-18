@@ -63,3 +63,20 @@ for epoch in range(100):
 
     if epoch % 20 == 0:
         print(f"Epoch {epoch}, Loss: {loss.item():.4f}")
+        
+preds = model(X).detach()
+pred_labels = (preds > 0.5).float()
+
+accuracy = (pred_labels == y).float().mean()
+
+print("Accuracy:", accuracy.item())
+
+tp = ((pred_labels == 1) & (y == 1)).sum().float()
+fp = ((pred_labels == 1) & (y == 0)).sum().float()
+fn = ((pred_labels == 0) & (y == 1)).sum().float()
+
+precision = tp / (tp + fp + 1e-8)
+recall = tp / (tp + fn + 1e-8)
+
+print("Precision:", precision.item())
+print("Recall:", recall.item())
