@@ -80,3 +80,14 @@ recall = tp / (tp + fn + 1e-8)
 
 print("Precision:", precision.item())
 print("Recall:", recall.item())
+
+torch.save(model.state_dict(), "model.pth")
+
+model = SimpleNN()  # recreate architecture
+model.load_state_dict(torch.load("model.pth"))
+
+model.eval()
+
+with torch.no_grad():
+    predictions = model(X)
+    print(predictions)
