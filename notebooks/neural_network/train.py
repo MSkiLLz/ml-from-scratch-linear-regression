@@ -1,31 +1,34 @@
 import torch
-
-texts = ["good", "bad", "great", "terrible"]
-labels = [1, 0, 1, 0]
-
-vocab = {"good": 0, "bad": 1, "great": 2, "terrible": 3}
-
-X = [vocab[word] for word in texts]
-X = torch.tensor(X).float().unsqueeze(1)
-
-y = torch.tensor(labels).float().unsqueeze(1)
-
 import torch.nn as nn
+
+vocab_size = 4
+embedding_dim = 2
+
+embedding = nn.Embedding(vocab_size, embedding_dim)
+
+word_index = torch.tensor([0])  # "good"
+
+vector = embedding(word_index)
+print(vector)
 
 class TextClassifier(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc = nn.Linear(1, 1)
+        self.embedding = nn.Embedding(4, 2)
+        self.fc = nn.Linear(2, 1)
 
     def forward(self, x):
-        return torch.sigmoid(self.fc(x))
+        x = self.embedding(x).squeeze(1)
+        x = torch.sigmoid(self.fc(x))
+        return x
+        
+X = torch.tensor([[0], [1], [2], [3]])
+y = torch.tensor([[1.0], [0.0], [1.0], [0.0]])
 
 model = TextClassifier()
 
-import torch.optim as optim
-
 criterion = nn.BCELoss()
-optimizer = optim.SGD(model.parameters(), lr=0.1)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
 for epoch in range(100):
     outputs = model(X)
@@ -37,12 +40,5 @@ for epoch in range(100):
 
     if epoch % 20 == 0:
         print(loss.item())
-        
-        
-test_word = "good"
-test_input = torch.tensor([[vocab[test_word]]]).float()
 
-with torch.no_grad():
-    pred = model(test_input)
-
-print("Prediction:", pred.item())        
+print(model.embedding.weight)
