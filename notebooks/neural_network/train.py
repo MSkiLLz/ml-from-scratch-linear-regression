@@ -1,31 +1,43 @@
 import torch
 import torch.nn as nn
 
-vocab_size = 4
-embedding_dim = 2
+sentences = [
+    ["good", "movie"],
+    ["not", "good"],
+    ["great", "film"],
+    ["bad", "movie"]
+]
 
-embedding = nn.Embedding(vocab_size, embedding_dim)
+labels = [1, 0, 1, 0]
 
-word_index = torch.tensor([0])  # "good"
+vocab = {"good":0, "movie":1, "not":2, "great":3, "film":4, "bad":5}
 
-vector = embedding(word_index)
-print(vector)
+X = [[vocab[word] for word in sentence] for sentence in sentences]
 
-class TextClassifier(nn.Module):
+X = torch.tensor(X)
+y = torch.tensor(labels).float().unsqueeze(1)
+
+embedding = nn.Embedding(len(vocab), 4)
+
+embedded = embedding(X)
+print(embedded.shape)
+
+avg_embedding = embedded.mean(dim=1)
+
+class SimpleTextModel(nn.Module):
     def __init__(self):
         super().__init__()
-        self.embedding = nn.Embedding(4, 2)
-        self.fc = nn.Linear(2, 1)
+        self.embedding = nn.Embedding(len(vocab), 4)
+        self.fc = nn.Linear(4, 1)
 
     def forward(self, x):
-        x = self.embedding(x).squeeze(1)
+        x = self.embedding(x)
+        x = x.mean(dim=1)
         x = torch.sigmoid(self.fc(x))
         return x
         
-X = torch.tensor([[0], [1], [2], [3]])
-y = torch.tensor([[1.0], [0.0], [1.0], [0.0]])
 
-model = TextClassifier()
+model = SimpleTextModel()
 
 criterion = nn.BCELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
