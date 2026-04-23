@@ -24,20 +24,24 @@ print(embedded.shape)
 
 avg_embedding = embedded.mean(dim=1)
 
-class SimpleTextModel(nn.Module):
+class RNNClassifier(nn.Module):
     def __init__(self):
         super().__init__()
         self.embedding = nn.Embedding(len(vocab), 4)
-        self.fc = nn.Linear(4, 1)
+        self.rnn = nn.RNN(4, 8, batch_first=True)
+        self.fc = nn.Linear(8, 1)
 
     def forward(self, x):
         x = self.embedding(x)
-        x = x.mean(dim=1)
+
+        output, hidden = self.rnn(x)
+
+        x = hidden.squeeze(0)
         x = torch.sigmoid(self.fc(x))
         return x
         
 
-model = SimpleTextModel()
+model = RNNClassifier()
 
 criterion = nn.BCELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
