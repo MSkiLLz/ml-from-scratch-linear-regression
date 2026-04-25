@@ -24,24 +24,26 @@ print(embedded.shape)
 
 avg_embedding = embedded.mean(dim=1)
 
-class RNNClassifier(nn.Module):
+lstm = nn.LSTM(input_size=4, hidden_size=8, batch_first=True)
+
+class LSTMClassifier(nn.Module):
     def __init__(self):
         super().__init__()
         self.embedding = nn.Embedding(len(vocab), 4)
-        self.rnn = nn.RNN(4, 8, batch_first=True)
+        self.lstm = nn.LSTM(4, 8, batch_first=True)
         self.fc = nn.Linear(8, 1)
 
     def forward(self, x):
         x = self.embedding(x)
 
-        output, hidden = self.rnn(x)
+        output, (hidden, cell) = self.lstm(x)
 
-        x = hidden.squeeze(0)
+        x = hidden[-1]
         x = torch.sigmoid(self.fc(x))
         return x
         
 
-model = RNNClassifier()
+model = LSTMClassifier()
 
 criterion = nn.BCELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
