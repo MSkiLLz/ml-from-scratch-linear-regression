@@ -1,30 +1,12 @@
 import torch
 import torch.nn as nn
 
-sentences = [
-    ["good", "movie"],
-    ["not", "good"],
-    ["great", "film"],
-    ["bad", "movie"]
-]
-
-labels = [1, 0, 1, 0]
+sentence = ["not", "good"]
 
 vocab = {"good":0, "movie":1, "not":2, "great":3, "film":4, "bad":5}
 
-X = [[vocab[word] for word in sentence] for sentence in sentences]
+input_tensor = torch.tensor([[vocab[word] for word in sentence]])
 
-X = torch.tensor(X)
-y = torch.tensor(labels).float().unsqueeze(1)
-
-embedding = nn.Embedding(len(vocab), 4)
-
-embedded = embedding(X)
-print(embedded.shape)
-
-avg_embedding = embedded.mean(dim=1)
-
-lstm = nn.LSTM(input_size=4, hidden_size=8, batch_first=True)
 
 class LSTMClassifier(nn.Module):
     def __init__(self):
@@ -45,18 +27,39 @@ class LSTMClassifier(nn.Module):
 
 model = LSTMClassifier()
 
-criterion = nn.BCELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+model.eval()
 
-for epoch in range(100):
-    outputs = model(X)
-    loss = criterion(outputs, y)
+with torch.no_grad():
+    prediction = model(input_tensor)
 
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+score = prediction.item()
+print(score)
 
-    if epoch % 20 == 0:
-        print(loss.item())
 
-print(model.embedding.weight)
+if score > 0.5:
+    sentiment = "Positive"
+else:
+    sentiment = "Negative"
+
+
+def respond(sentiment):
+    if sentiment == "Positive":
+        return "Glad you liked it!"
+    else:
+        return "Sorry to hear that. How can we improve?"
+
+response = respond(sentiment)
+
+print("Agent:", response)
+
+def ai_agent(sentence):
+    input_tensor = torch.tensor([[vocab[word] for word in sentence]])
+
+    with torch.no_grad():
+        score = model(input_tensor).item()
+
+    sentiment = "Positive" if score > 0.5 else "Negative"
+
+    return respond(sentiment)
+
+print(ai_agent(["not", "good"]))
