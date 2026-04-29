@@ -1,31 +1,25 @@
 import torch
+import torch.nn as nn
 
-ratings = torch.tensor([
-    [5, 0, 3],  # User 1
-    [4, 0, 2],  # User 2
-    [0, 5, 4],  # User 3
-], dtype=torch.float)
+movies = {
+    "Movie A": [1, 0],  # action
+    "Movie B": [0, 1],  # romance
+    "Movie C": [1, 1],  # action + romance
+}
 
 user_profile = torch.tensor([1.0, 0.0])  # likes action
 
-def similarity(u1, u2):
-    return torch.dot(u1, u2)
+def similarity(user, item):
+    return torch.dot(user, torch.tensor(item).float())
+    
+scores = {}
 
-sim_1_2 = similarity(ratings[0], ratings[1])
-sim_1_3 = similarity(ratings[0], ratings[2])
-
-print(sim_1_2, sim_1_3)
-
-target_user = ratings[0]
-
-scores = torch.zeros(3)
-
-for i in range(len(ratings)):
-    if i != 0:
-        sim = similarity(target_user, ratings[i])
-        scores += sim * ratings[i]
+for movie, features in movies.items():
+    scores[movie] = similarity(user_profile, features)
 
 print(scores)
 
+recommended = sorted(scores.items(), key=lambda x: x[1], reverse=True)
 
+print("Recommendations:", recommended)
 
