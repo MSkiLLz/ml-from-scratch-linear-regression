@@ -1,42 +1,51 @@
 import torch
+import torch.nn as nn
 
 num_users = 3
 num_items = 3
-embedding_dim = 2
+embedding_dim = 4
 
-user_emb = torch.randn(num_users, embedding_dim, requires_grad=True)
-item_emb = torch.randn(num_items, embedding_dim, requires_grad=True)
+class RecSysModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.user_emb = nn.Embedding(num_users, embedding_dim)
+        self.item_emb = nn.Embedding(num_items, embedding_dim)
 
-def predict(u, i):
-    return torch.dot(user_emb[u], item_emb[i])
+        self.fc = nn.Sequential(
+            nn.Linear(embedding_dim * 2, 8),
+            nn.ReLU(),
+            nn.Linear(8, 1)
+        )
 
+    def forward(self, user, item):
+        u = self.user_emb(user)
+        i = self.item_emb(item)
 
-ratings = torch.tensor([
-    [5, 0, 3],
-    [4, 0, 2],
-    [0, 5, 4]
-], dtype=torch.float)
+        x = torch.cat([u, i], dim=1)
+        return self.fc(x)
+        
+data = [
+    (0, 0, 5),
+    (0, 2, 3),
+    (1, 0, 4),
+    (1, 2, 2),
+    (2, 1, 5),
+    (2, 2, 4),
+]
 
-loss = 0
+users = torch.tensor([d[0] for d in data])
+items = torch.tensor([d[1] for d in data])
+ratings = torch.tensor([d[2] for d in data]).float().unsqueeze(1)
 
-for u in range(num_users):
-    for i in range(num_items):
-        if ratings[u, i] > 0:
-            pred = predict(u, i)
-            loss += (pred - ratings[u, i])**2
-            
+model = RecSysModel()
 
-optimizer = torch.optim.SGD([user_emb, item_emb], lr=0.01)
+criterion = nn.MSELoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 for epoch in range(100):
 
-    loss = 0
-
-    for u in range(num_users):
-        for i in range(num_items):
-            if ratings[u, i] > 0:
-                pred = predict(u, i)
-                loss += (pred - ratings[u, i])**2
+    preds = model(users, items)
+    loss = criterion(preds, ratings)
 
     optimizer.zero_grad()
     loss.backward()
@@ -45,8 +54,8 @@ for epoch in range(100):
     if epoch % 20 == 0:
         print(loss.item())
         
-user_id = 0
+user_id = torch.tensor([0])
+item_id = torch.tensor([1])  # unseen item
 
-scores = [predict(user_id, i).item() for i in range(num_items)]
-
-print(scores)
+prediction = model(user_id, item_id)
+print("Predicted rating:", prediction.item())
