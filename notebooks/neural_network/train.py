@@ -1,61 +1,39 @@
 import torch
 import torch.nn as nn
 
-num_users = 3
-num_items = 3
-embedding_dim = 4
+memory = []
 
-class RecSysModel(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.user_emb = nn.Embedding(num_users, embedding_dim)
-        self.item_emb = nn.Embedding(num_items, embedding_dim)
+def store_interaction(user_input, sentiment):
+    memory.append({
+        "input": user_input,
+        "sentiment": sentiment
+    })
+    
+def analyze_memory():
+    negatives = sum(1 for m in memory if m["sentiment"] == "Negative")
+    positives = sum(1 for m in memory if m["sentiment"] == "Positive")
 
-        self.fc = nn.Sequential(
-            nn.Linear(embedding_dim * 2, 8),
-            nn.ReLU(),
-            nn.Linear(8, 1)
-        )
+    return positives, negatives
+    
+def respond(sentiment):
+    positives, negatives = analyze_memory()
 
-    def forward(self, user, item):
-        u = self.user_emb(user)
-        i = self.item_emb(item)
+    if negatives > positives:
+        return "I see you've had several bad experiences. Let's fix that."
 
-        x = torch.cat([u, i], dim=1)
-        return self.fc(x)
-        
-data = [
-    (0, 0, 5),
-    (0, 2, 3),
-    (1, 0, 4),
-    (1, 2, 2),
-    (2, 1, 5),
-    (2, 2, 4),
-]
+    if sentiment == "Positive":
+        return "Glad you liked it!"
+    else:
+        return "Sorry to hear that. How can we improve?"
 
-users = torch.tensor([d[0] for d in data])
-items = torch.tensor([d[1] for d in data])
-ratings = torch.tensor([d[2] for d in data]).float().unsqueeze(1)
+def ai_agent(sentence):
+    input_tensor = torch.tensor([[vocab[word] for word in sentence]])
 
-model = RecSysModel()
+    with torch.no_grad():
+        score = model(input_tensor).item()
 
-criterion = nn.MSELoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+    sentiment = "Positive" if score > 0.5 else "Negative"
 
-for epoch in range(100):
+    store_interaction(sentence, sentiment)
 
-    preds = model(users, items)
-    loss = criterion(preds, ratings)
-
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-
-    if epoch % 20 == 0:
-        print(loss.item())
-        
-user_id = torch.tensor([0])
-item_id = torch.tensor([1])  # unseen item
-
-prediction = model(user_id, item_id)
-print("Predicted rating:", prediction.item())
+    return respond(sentiment)
