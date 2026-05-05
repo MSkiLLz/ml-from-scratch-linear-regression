@@ -4,14 +4,9 @@ def preprocess(text):
     return text.lower().split()
 
 
-def predict_sentiment(model, vocab, words):
-    indices = [vocab.get(word, 0) for word in words]
-    input_tensor = torch.tensor([indices])
-
-    with torch.no_grad():
-        score = model(input_tensor).item()
-
-    return "Positive" if score > 0.5 else "Negative"
+def predict_sentiment(text):
+    result = classifier(text)[0]
+    return "Positive" if result["label"] == "POSITIVE" else "Negative"
 
 
 def decision(sentiment):
