@@ -1,0 +1,18 @@
+[
+  {
+    "text": "\n    Recipe: Jollof Rice\n\n    Region: West African\n\n    Ingredients:\n    rice, tomatoes, onions, pepper, chicken stock\n\n    Estimated Cost:\n    $12\n\n    Instructions:\n    Cook tomato sauce. Add rice and simmer.\n    ",
+    "metadata": {
+      "title": "Jollof Rice",
+      "region": "West African",
+      "estimated_cost": 12
+    }
+  },
+  {
+    "text": "\n    Recipe: Chicken Fried Rice\n\n    Region: East Asian\n\n    Ingredients:\n    rice, chicken, soy sauce, garlic, egg\n\n    Estimated Cost:\n    $13\n\n    Instructions:\n    Cook chicken. Stir fry rice and egg.\n    ",
+    "metadata": {
+      "title": "Chicken Fried Rice",
+      "region": "East Asian",
+      "estimated_cost": 13
+    }
+  }
+]

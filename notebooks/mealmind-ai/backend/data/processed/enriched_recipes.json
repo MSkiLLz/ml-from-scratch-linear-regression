@@ -1,0 +1,28 @@
+[
+  {
+    "title": "Jollof Rice",
+    "ingredients": [
+      "rice",
+      "tomatoes",
+      "onions",
+      "pepper",
+      "chicken stock"
+    ],
+    "instructions": "Cook tomato sauce. Add rice and simmer.",
+    "region": "West African",
+    "estimated_cost": 12
+  },
+  {
+    "title": "Chicken Fried Rice",
+    "ingredients": [
+      "rice",
+      "chicken",
+      "soy sauce",
+      "garlic",
+      "egg"
+    ],
+    "instructions": "Cook chicken. Stir fry rice and egg.",
+    "region": "East Asian",
+    "estimated_cost": 13
+  }
+]

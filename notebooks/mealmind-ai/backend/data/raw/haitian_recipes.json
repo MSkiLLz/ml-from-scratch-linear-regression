@@ -1,0 +1,227 @@
+[
+  {
+    "title": "Griot",
+    "ingredients": [
+      "3 lbs pork shoulder, cut into cubes",
+      "2 limes, juiced",
+      "1 orange, juiced",
+      "1/4 cup white vinegar",
+      "1 onion, sliced",
+      "4 cloves garlic, minced",
+      "2 Scotch bonnet peppers",
+      "1 teaspoon thyme",
+      "2 teaspoons salt",
+      "1 teaspoon black pepper",
+      "2 cups water",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Wash the pork with lime juice and vinegar.",
+      "Season with orange juice, onion, garlic, peppers, thyme, salt, and black pepper.",
+      "Marinate for at least 2 hours or overnight.",
+      "Add water and simmer until the pork is tender and the liquid is mostly reduced.",
+      "Remove the pork pieces and allow them to dry slightly.",
+      "Deep-fry until golden brown and crispy.",
+      "Serve with pikliz and rice."
+    ],
+    "region": "Caribbean"
+  },
+  {
+    "title": "Diri Ak Djon Djon",
+    "ingredients": [
+      "2 cups rice",
+      "1 cup dried djon djon mushrooms",
+      "4 cups water",
+      "1 green bell pepper, diced",
+      "1 onion, chopped",
+      "2 cloves garlic, minced",
+      "1 teaspoon thyme",
+      "1 teaspoon salt",
+      "2 tablespoons oil"
+    ],
+    "instructions": [
+      "Rinse the mushrooms and soak them in hot water for 30 minutes.",
+      "Strain the mushroom liquid and reserve it.",
+      "Sauté onion, garlic, and bell pepper in oil.",
+      "Add rice and stir for 2 minutes.",
+      "Pour in the mushroom liquid and season with thyme and salt.",
+      "Cook until the rice is tender and fluffy."
+    ],
+    "region": "Northern Haiti"
+  },
+  {
+    "title": "Pikliz",
+    "ingredients": [
+      "1 small cabbage, shredded",
+      "2 carrots, julienned",
+      "1 onion, thinly sliced",
+      "4 Scotch bonnet peppers, sliced",
+      "2 cups white vinegar",
+      "1 tablespoon salt",
+      "1 teaspoon whole cloves"
+    ],
+    "instructions": [
+      "Combine cabbage, carrots, onion, and peppers in a large bowl.",
+      "Add salt and cloves.",
+      "Pack into a sterilized jar.",
+      "Pour vinegar over the vegetables until fully covered.",
+      "Seal and refrigerate for at least 24 hours before serving."
+    ],
+    "region": "Nationwide"
+  },
+  {
+    "title": "Soup Joumou",
+    "ingredients": [
+      "2 lbs beef stew meat",
+      "1 small pumpkin or calabaza squash",
+      "2 carrots, sliced",
+      "2 potatoes, diced",
+      "1 turnip, diced",
+      "1 celery stalk, chopped",
+      "1 onion, chopped",
+      "3 cloves garlic, minced",
+      "1 teaspoon thyme",
+      "8 cups water",
+      "1 cup pasta",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Boil the beef with onion, garlic, thyme, salt, and pepper until tender.",
+      "Cook the pumpkin separately and blend until smooth.",
+      "Add pumpkin puree and vegetables to the beef broth.",
+      "Simmer until vegetables are tender.",
+      "Add pasta and cook until done.",
+      "Adjust seasoning and serve hot."
+    ],
+    "region": "Nationwide"
+  },
+  {
+    "title": "Tassot Kabrit",
+    "ingredients": [
+      "3 lbs goat meat, cut into chunks",
+      "2 limes, juiced",
+      "1 onion, sliced",
+      "4 cloves garlic, minced",
+      "1 teaspoon thyme",
+      "2 Scotch bonnet peppers",
+      "1 teaspoon salt",
+      "1 teaspoon black pepper",
+      "2 cups water",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Wash the goat meat with lime juice.",
+      "Season with onion, garlic, thyme, peppers, salt, and black pepper.",
+      "Marinate for several hours.",
+      "Simmer with water until tender and the liquid reduces.",
+      "Allow the meat to dry slightly.",
+      "Deep-fry until crispy and browned.",
+      "Serve with pikliz."
+    ],
+    "region": "Rural Haiti"
+  },
+  {
+    "title": "Mayi Moulen Ak Sòs Pwa",
+    "ingredients": [
+      "2 cups cornmeal",
+      "4 cups water",
+      "1 teaspoon salt",
+      "2 cups cooked black beans",
+      "1 onion, chopped",
+      "2 cloves garlic, minced",
+      "1 tablespoon oil"
+    ],
+    "instructions": [
+      "Bring water and salt to a boil.",
+      "Gradually whisk in the cornmeal.",
+      "Cook while stirring until thick and smooth.",
+      "Blend the beans with some cooking liquid.",
+      "Sauté onion and garlic in oil.",
+      "Add bean puree and simmer for 10 minutes.",
+      "Serve the cornmeal topped with bean sauce."
+    ],
+    "region": "Nationwide"
+  },
+  {
+    "title": "Legim",
+    "ingredients": [
+      "1 lb beef or crab",
+      "1 eggplant, diced",
+      "1 chayote, diced",
+      "1 cabbage wedge, chopped",
+      "2 carrots, sliced",
+      "1 spinach bunch",
+      "1 onion, chopped",
+      "3 cloves garlic, minced",
+      "1 teaspoon thyme",
+      "2 tablespoons tomato paste",
+      "4 cups water",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Cook the meat until tender.",
+      "Boil the vegetables separately until soft.",
+      "Mash or blend some of the vegetables for texture.",
+      "Sauté onion, garlic, and tomato paste.",
+      "Combine meat, vegetables, and seasonings.",
+      "Simmer for 20 minutes and serve with rice."
+    ],
+    "region": "Nationwide"
+  },
+  {
+    "title": "Banann Peze",
+    "ingredients": [
+      "4 green plantains",
+      "Oil for frying",
+      "1 teaspoon salt"
+    ],
+    "instructions": [
+      "Peel the plantains and cut into thick slices.",
+      "Fry until lightly golden.",
+      "Flatten each piece with a press or plate.",
+      "Fry again until crisp and golden brown.",
+      "Sprinkle with salt and serve hot."
+    ],
+    "region": "Caribbean"
+  },
+  {
+    "title": "Pain Patate",
+    "ingredients": [
+      "2 lbs sweet potatoes, grated",
+      "1 cup coconut milk",
+      "1/2 cup brown sugar",
+      "1 teaspoon cinnamon",
+      "1 teaspoon vanilla extract",
+      "1/4 teaspoon nutmeg",
+      "1/4 cup raisins"
+    ],
+    "instructions": [
+      "Preheat the oven to 350°F (175°C).",
+      "Mix all ingredients in a large bowl.",
+      "Pour into a greased baking dish.",
+      "Bake for 1 hour or until firm and golden.",
+      "Cool before slicing and serving."
+    ],
+    "region": "Nationwide"
+  },
+  {
+    "title": "Akra",
+    "ingredients": [
+      "2 cups malanga, grated",
+      "2 cloves garlic, minced",
+      "2 green onions, chopped",
+      "1 Scotch bonnet pepper, minced",
+      "1 teaspoon salt",
+      "1/2 teaspoon black pepper",
+      "Oil for frying"
+    ],
+    "instructions": [
+      "Squeeze excess moisture from the grated malanga.",
+      "Mix with garlic, green onions, pepper, salt, and black pepper.",
+      "Form into small patties.",
+      "Deep-fry until crisp and golden brown.",
+      "Drain on paper towels and serve hot."
+    ],
+    "region": "Nationwide"
+  }
+]
