@@ -1,30 +1,26 @@
-import os
-import json
 import ollama
 
-from dotenv import load_dotenv
-from openai import OpenAI
-
-# Load environment variables from .env
-# load_dotenv()
-
-# Initialize client
-# client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+from app.models.recipe_model import RecipeResponse
+from app.services.json_utils import extract_json
 
 
-def generate_recipe(prompt: str) -> dict:
+MODEL_NAME = "llama3"
+
+
+def generate_recipe(prompt: str):
+
     """
-    Sends the prompt to the LLM and returns parsed JSON.
+    Generate and validate recipe output.
     """
 
-    response =  ollama.chat(
-        model="llama3",
+    response = ollama.chat(
+        model=MODEL_NAME,
         messages=[
             {
                 "role": "system",
                 "content": (
                     "You are a professional chef AI. "
-                    "Always return valid JSON."
+                    "Always return ONLY valid JSON."
                 )
             },
             {
@@ -34,18 +30,15 @@ def generate_recipe(prompt: str) -> dict:
         ]
     )
 
-    content = response["message"]["content"]
-    
-    # Remove markdown code fences if present
-    content = content.strip()
+    raw_content = response["message"]["content"]
 
-    if content.startswith("```"):
-        content = content.split("```")[1]
+    print("\nRAW MODEL OUTPUT:\n")
+    print(raw_content)
 
-        if content.startswith("json"):
-            content = content[4:]
+    # Extract JSON safely
+    parsed_json = extract_json(raw_content)
 
-    content = content.strip()
+    # Validate schema
+    validated = RecipeResponse(**parsed_json)
 
-    # Convert JSON string into Python dictionary
-    return json.loads(content)
+    return validated.model_dump()

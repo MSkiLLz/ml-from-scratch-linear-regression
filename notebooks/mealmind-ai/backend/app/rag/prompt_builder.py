@@ -39,7 +39,10 @@ Rules:
 2. Stay within the specified budget.
 3. Match the requested cuisine region.
 4. You may use basic pantry staples (salt, pepper, oil, water).
-5. Provide output as valid JSON only.
+5. Return ONLY raw JSON.
+6. Do not use markdown.
+7. Do not include explanations.
+8. estimated_cost must be an integer.
 
 Required JSON format:
 {{
