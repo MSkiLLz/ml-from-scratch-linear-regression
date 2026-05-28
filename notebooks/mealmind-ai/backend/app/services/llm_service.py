@@ -1,14 +1,15 @@
 import os
 import json
+import ollama
 
 from dotenv import load_dotenv
 from openai import OpenAI
 
 # Load environment variables from .env
-load_dotenv()
+# load_dotenv()
 
 # Initialize client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def generate_recipe(prompt: str) -> dict:
@@ -16,9 +17,8 @@ def generate_recipe(prompt: str) -> dict:
     Sends the prompt to the LLM and returns parsed JSON.
     """
 
-    response = client.chat.completions.create(
-        model="gpt-4o-mini",
-        temperature=0.7,
+    response =  ollama.chat(
+        model="llama3",
         messages=[
             {
                 "role": "system",
@@ -34,7 +34,18 @@ def generate_recipe(prompt: str) -> dict:
         ]
     )
 
-    content = response.choices[0].message.content
+    content = response["message"]["content"]
+    
+    # Remove markdown code fences if present
+    content = content.strip()
+
+    if content.startswith("```"):
+        content = content.split("```")[1]
+
+        if content.startswith("json"):
+            content = content[4:]
+
+    content = content.strip()
 
     # Convert JSON string into Python dictionary
     return json.loads(content)
